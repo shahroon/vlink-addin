@@ -1,135 +1,314 @@
-/* 
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
-
-html,
 body {
-    width: 100%;
-    height: 100%;
     margin: 0;
+}
+
+#vlink-ui{
+    margin: 0;
+}
+
+#status-bar,
+#status-bar-compose,
+#vlink-sign-in-status-bar,
+#vlink-video-select-status-bar {
+    display: block;
+    padding: 5px;
+    background-color: darkgreen;
+    text-align: center;
+    font-size: 10pt;
+    font-family: arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    transition: height 0.5s, padding 0.5s;
+}
+
+#status-bar.hide,
+#status-bar-compose.hide,
+#vlink-sign-in-status-bar.hide,
+#vlink-video-select-status-bar.hide {
+    height: 0;
     padding: 0;
 }
 
-ul,
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0;
+#status-bar.error,
+#status-bar-compose.error,
+#vlink-sign-in-status-bar.error,
+#vlink-video-select-status-bar.error {
+    background-color: red;
+}
+
+#status-bar.error.hide,
+#status-bar-compose.error.hide,
+#vlink-sign-in-status-bar.error.hide,
+#vlink-video-select-status-bar.error.hide {
+    height: 0;
     padding: 0;
 }
 
-.ms-welcome {
-    position: relative;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    min-height: 500px;
-    min-width: 320px;
-    overflow: auto;
-    overflow-x: hidden;
+.vlink-dialog-header {
+    background: #404040;
+    padding: 8px;
 }
 
-.ms-welcome__header {
-    min-height: 250px;
+.vlink-dialog-header table {
+    color: white;
+    font-size: 13px;
+    font-family: arial, sans-serif;
+}
+
+.vlink-dialog-body {
+    margin: 0;
+    background-color: white;
+    font-size: 10pt;
+    font-family: arial, sans-serif;
+}
+
+#vlink_sign_in, #vlink-video-select, #vlink-options, #vlink-error-too-many-emails{
+    position: fixed;
+    z-index: 899;
+    display: inline-block;
+    border: 1px;
+    border-style: solid;
+    border-color: gray;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 6px;
+    background-color: #ffffff;
+}
+
+#vlink_sign_in .vlink-dialog-body {
+    height: 100px;
+    width: 250px;
     padding: 20px;
-    padding-bottom: 30px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
 }
 
-.ms-welcome__header > h1 {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.ms-welcome__main {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-flex: 1 0 0;
-    flex: 1 0 0;
-    padding: 30px 20px;
-}
-
-.ms-welcome__main > h2 {
+#vlink_sign_in table, #vlink-video-select table, #vlink-options table{
     width: 100%;
+    font-size: 10pt;
+    font-family: arial, sans-serif;
+}
+
+#vlink_sign_in.hide, #vlink-error-too-many-emails.hide{
+    height: 0;
+    display: none;
+}
+
+#vlink_sign_in .btn-container, #vlink-options .btn-container{
+    text-align: right;
+}
+
+#vlink-video-select .vlink-dialog-body {
+    height: 190px;
+    width: 550px;
+    padding: 20px;
+}
+
+#vlink-video-title-container {
+    height: 30px;
+    margin: 5px 0 20px 0;
+}
+
+#vlink-video-title {
+    margin: 5px 0 0 0;
+}
+
+#vlink-video-select.hide{
+    height: 0;
+    display: none;
+}
+
+#vlink-video-select .options{
+    display: inline-block;
+    width: 250px;
+}
+
+
+#vlink-error-too-many-emails {
+    width: 420px;
+}
+
+#vlink-error-too-many-emails .vlink-dialog-body {
+    margin: 20px;
+}
+
+#vlink-error-too-many-emails .vlink-dialog-body h1{
+    font-size: 12pt;
+    font-weight: normal;
+}
+
+#vlink-error-too-many-emails .vlink-dialog-body div {
+    margin: 15px;
+}
+
+#vlink-toolbar {
+    display: inline-block;
+    top: 100px;
+    left: 100px;
+}
+
+#insert-video-btn{
+    display: inline-block;
+    opacity: 0.55;
+    height: 25px;
+    width: 26px;
+    margin: 2px 0;
+    border-spacing: 0;
+    border-color: transparent;
+    border-width: 1px;
+    border-radius: 2px;
+    border-style: solid;
+}
+
+#insert-video-btn:hover{
+    opacity: 0.9;
+    border-color: lightgray;
+}
+
+#insert-video-btn img {
+    padding: 3px;
+}
+
+#insert-video-btn.hide{
+    display: none;
+}
+
+#vlink-menu {
+    width: 80px;
+    background: #f5f5f5;
+    box-shadow:  2px 2px 1px rgba(0,0,0,.1);
+    transition: opacity 0.218s;
+}
+
+#vlink-menu.hide {
+    display: none;
+}
+
+.vlink-menu-item {
+    padding: 8px;
+    color: #333;
+    font-size: 11px;
+    font-weight: bold;
+    height: 12px;
+    font-family: arial, sans-serif;
+    text-align: left;
+    cursor: pointer;
+    border-bottom: 1px solid lightgray;
+    opacity: 0.7;
+}
+
+.vlink-menu-item:hover{
+    opacity: 1.0;
+}
+
+#vlink-options .vlink-dialog-body {
+    height: 100px;
+    width: 200px;
+    padding: 20px;
+}
+
+#vlink-options select {
+    width: 100%;
+}
+
+#vlink-options.hide {
+    display: none;
+}
+
+.ui-autocomplete, .ui-selectmenu-menu {
+    position: relative;
+    width: 80px;
+    background-color: white;
+    transition: opacity 0.218s;
+    border: 1px solid lightgray;
+    z-index: 900;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 6px;
+    max-height: 250px;
+}
+
+.ui-autocomplete {
+    overflow: auto;
+}
+
+.ui-selectmenu-text {
+    font-family: arial, sans-serif;
+    font-size: 10pt;
+}
+
+#videos-dropdown-button {
+    height: 25px;
+    border-radius: 0;
+}
+
+#videos-dropdown-menu {
+    max-height: 250px;
+}
+
+.ui-menu-item, option{
+    position: relative;
+    list-style-image: none;
+    padding: 8px;
+    color: #333;
+    font-size: 10pt;
+    font-family: arial, sans-serif;
+    text-align: left;
+    border-bottom: 1px solid lightgray;
+    z-index: 900;
+}
+
+.ui-menu-item.ui-state-focus {
+    font-weight: bold;
+    background-image: none;
+}
+
+.right{
+    text-align: right;
+}
+
+table {
+    width: 100%;
+}
+
+#videos-search {
+    width: 250px;
+    height: 21px;
+}
+
+#videos-dropdown {
+    width: 255px;
+    font: inherit;
+}
+
+#vlink-insert-video-tooltip {
+    display: none;
     text-align: center;
+    position:fixed;
+    height: 12px;
+    width: 110px;
+    color: #333;
+    background-color: yellow;
+    border: 1px;
+    border-color: gray;
+    border-style: solid;
+    font-family: arial, sans-serif;
+    font-size: 8pt;
+    top: 100px;
+    left: 100px;
+    padding: 2px;
+    z-index: 999;
 }
 
-.ms-welcome__features {
-    list-style-type: none;
-    margin-top: 30px;
+#vlink-modalDialog {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 99999;
+    opacity:1;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
 }
 
-.ms-welcome__features.ms-List .ms-ListItem {
-    padding: 0px;
-    padding-bottom: 20px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
-.ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-    font-size: 14pt;
-}
-
-.ms-welcome__features.ms-List .ms-ListItem > .ms-Icon {
-    margin-right: 10px;
-}
-
-.ms-welcome__action.ms-Button--hero {
-    margin-top: 30px;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-direction: row;
-    flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-align-items: center;
-    align-items: center;
-}
-
-.ms-welcome__action.ms-Button--hero .ms-Button-icon .ms-Icon {
-    margin-left: 5px;
-    margin-top: 4px;
-    border: none;
-    font-size: 14pt;
-}
-
-.ms-welcome__action.ms-Button--hero:hover .ms-Button-icon .ms-Icon {
-    border: none;
-}
-
-@media (min-width: 0) and (max-width: 350px) {
-    .ms-welcome__features {
-        width: 100%;
-    }
+#vlink-modalDialog.hide {
+    display: none;
 }

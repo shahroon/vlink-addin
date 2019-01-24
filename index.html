@@ -27,42 +27,165 @@
 </head>
 
 <body class="ms-font-m ms-welcome">
-    <header class="ms-welcome__header ms-bgColor-neutralLighter ms-u-fadeIn500">
-        <img width="90" height="90" src="assets/logo-filled.png" alt="vlink-addin" title="vlink-addin" />
-        <h1 class="ms-fontSize-su ms-fontWeight-light ms-fontColor-neutralPrimary">Welcome</h1>
-    </header>
-    <section id="sideload-msg" class="ms-welcome__main">
-        <h2 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20">Please sideload your addin to see app body.</h2>
-    </section>
-    <main id="app-body" class="ms-welcome__main" style="display: none;">
-        <h2 class="ms-font-xl ms-fontWeight-semilight ms-fontColor-neutralPrimary ms-u-slideUpIn20"> Discover what vlink-addin can do for you today! </h2>
-        <ul class="ms-List ms-welcome__features ms-u-slideUpIn10">
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Ribbon"></i>
-                <span class="ms-font-m ms-fontColor-neutralPrimary">Achieve more with Office integration</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Unlock"></i>
-                <span class="ms-font-m ms-fontColor-neutralPrimary">Unlock features and functionality</span>
-            </li>
-            <li class="ms-ListItem">
-                <i class="ms-Icon ms-Icon--Design"></i>
-                <span class="ms-font-m ms-fontColor-neutralPrimary">Create and visualize like a pro</span>
-            </li>
-        </ul>
-        <br />
-        <br />
-        <p class="ms-font-l">Modify the source files, then click <b>Run</b>.</p>
-        <div role="button" id="run" class="ms-welcome__action ms-Button ms-Button--hero ms-u-slideUpIn20">
-            <span class="ms-Button-label">Run</span>
-            <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--ChevronRight"></i></span>
+    <div id="vlink-ui">
+        <div id="status-bar" class="hide"></div>
+    
+        <div id="vlink_sign_in" class="hide">
+            <div class="vlink-dialog-header">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>vLink - Sign In</td>
+                        <td id="signin-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="vlink-sign-in-status-bar" class="hide"></div>
+            <div class="vlink-dialog-body">
+                <table>
+                    <tr>
+                        <td>
+                            Email:
+                        </td>
+                        <td>
+                            <input id="email-input" type="text" name="email" id="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Password:
+                        </td>
+                        <td>
+                            <input id="password-input" type="password" name="password" id="password">
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <div class="btn-container">
+                    <button id="signin-button">Sign in</button>
+                </div>
+            </div>
         </div>
-    </main>
+    
+        <div id="vlink-video-select" class="hide">
+            <div class="vlink-dialog-header">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>vLink - Engage Your Audience!</td>
+                        <td id="video-select-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="vlink-video-select-status-bar" class="hide"></div>
+            <div class="vlink-dialog-body">
+                <div>What content do you want to engage your audience with?</div>
+                <br>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div><label>Choose from most popular content</label></div>
+                        </td>
+                        <td>
+                            <div class="right"><select id="videos-dropdown"></select></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div><label>Search available content</label></div>
+                        </td>
+                        <td>
+                            <div class="right"><input id="videos-search"></div>
+                        </td>
+                    </tr>
+                    <tr><td><div style="height: 10px"></div></td></tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="vlink-video-title-container">Selection: <div id="vlink-video-title"></div></div>
+                        </td>
+                    </tr>
+    
+                    <tr>
+                        <td>
+                            <div><button id="preview-button">Preview Video</button> </div>
+                        </td>
+                        <td>
+                            <div class="right"><button id="insert-video-button">Insert Content Link</button></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+        <div id="vlink-options" class="hide">
+            <div class="vlink-dialog-header">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>vLink - Options</td>
+                        <td id="options-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="vlink-dialog-body">
+                <div>Options</div>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            Image Size:
+                        </td>
+                        <td>
+                            <select id="preview-size" class="right">
+                                <option value="640x360">640 x 360</option>
+                                <option value="480x270">480 x 270</option>
+                                <option value="320x180">320 x 180</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <div class="btn-container">
+                    <button id="options-ok-button">OK</button>
+                </div>
+            </div>
+        </div>
+    
+        <div id="vlink-insert-video-tooltip">Click to place content</div>
+    
+        <div id="vlink-modalDialog" class="hide">
+            <div id="vlink-error-too-many-emails" class="hide">
+                <div class="vlink-dialog-header">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <td>vLink - ERROR - Too many recipients</td>
+                            <td id="video-select-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="vlink-dialog-body">
+                    <h1>We see you are sending content to multiple contacts!</h1>
+                    <div>In order to track your recipients' activity the vLink plugin must send separate emails to each contact</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <script type="text/javascript" src="node_modules/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="node_modules/office-ui-fabric-js/dist/js/fabric.js"></script>
-
-
+    <script type="text/javascript" src="src/api_credentials.js"></script>
+    <script type="text/javascript" src="src/gmail.js"></script>
+    <script type="text/javascript" src="src/views.js"></script>
+    <script type="text/javascript" src="src/vlink.js"></script>
+    <script type="text/javascript" src="src/options.js"></script>
 </body>
 
 </html>
