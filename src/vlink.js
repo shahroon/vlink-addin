@@ -1,5 +1,5 @@
 vlink = {
-    server_root: 'https://localhost/',
+    server_root: 'https://cafae9bf.ngrok.io/',
     data: null,
     video: null,
     embed_code: null,
@@ -144,7 +144,7 @@ vlink = {
 
     sign_in: function(){
         api_credentials.load();
-
+        console.log("------------------------------------" + api_credentials.token);
         if (api_credentials.token === null)
             vlink.show_sign_in();
     },
@@ -168,7 +168,9 @@ vlink = {
                 if (data.access_token != null){
                     api_credentials.store(data.access_token, data.token_type);
                     vlink.show_message.in.sign_in_box(vlink.messages.sign_in_success);
+                    console.log(api_credentials);
                     views.sign_in.hide();
+                    
                     vlink.get_data();
                 }
                 else
