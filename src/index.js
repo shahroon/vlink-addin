@@ -18,10 +18,11 @@
 
 // INTIALIZE CODE STARTS HERE
             vlink.init();
-            $('#vlink_sign_in').show();
-            $(views.sign_in.button).click(function(){
-                vlink.sign_in_request($(views.sign_in.email_input).val(), $(views.sign_in.password_input).val());     
-            });  
+            views.init();
+            // $('#vlink_sign_in').show();
+            // $(views.sign_in.button).click(function(){
+            //     vlink.sign_in_request($(views.sign_in.email_input).val(), $(views.sign_in.password_input).val());     
+            // });  
 // INTIALIZE CODE ENDS HERE
 
         });
@@ -30,6 +31,11 @@
 
     Office.initialize = function(reason){
         // MOVE INTIALIZE CODE HERE
+        // vlink.init();
+        // $('#vlink_sign_in').show();
+        // $(views.sign_in.button).click(function(){
+        //     vlink.sign_in_request($(views.sign_in.email_input).val(), $(views.sign_in.password_input).val());     
+        // });  
     };
 
 })();

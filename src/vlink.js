@@ -1,5 +1,6 @@
 vlink = {
-    server_root: 'https://cafae9bf.ngrok.io/',
+    server_root: 'https://505e7d2a.ngrok.io/',
+    // server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
     embed_code: null,
@@ -86,14 +87,8 @@ vlink = {
 
     init: function(){
         window.intervalId = window.setInterval(function(){
-            if (gmail.initialize() == true){
 
-                if ($(views.button.selector).length == 0){
-                    gmail.compose_message.add_toolbar_start_separator();
-
-                    gmail.compose_message.add_toolbar_button(views.button.html);
-                    $(views.button.selector).click(vlink.show_select_video_box);
-                }
+                vlink.show_select_video_box;
 
                 views.new_message_status_bar.init();
                 vlink.message_uuid = vlink.build_uuid();
@@ -103,7 +98,6 @@ vlink = {
                 vlink.get_data();
 
                 window.clearInterval(window.intervalId);
-            }
         }, 200);
     },
 
@@ -144,7 +138,6 @@ vlink = {
 
     sign_in: function(){
         api_credentials.load();
-        console.log("------------------------------------" + api_credentials.token);
         if (api_credentials.token === null)
             vlink.show_sign_in();
     },
@@ -168,8 +161,7 @@ vlink = {
                 if (data.access_token != null){
                     api_credentials.store(data.access_token, data.token_type);
                     vlink.show_message.in.sign_in_box(vlink.messages.sign_in_success);
-                    console.log(api_credentials);
-                    views.sign_in.hide();
+                    $(views.sign_in.selector).hide();
                     
                     vlink.get_data();
                 }
@@ -229,7 +221,8 @@ vlink = {
 
     insert_email_signature: function(){
         if ($('#email-signature').length > 0) return;
-        gmail.compose_message.append_content($("<div id='email-signature'></div>").append(base64.decode(vlink.data.email_signature)));
+        Office.context.mailbox.item.body.setAsync(
+            $("<div id='email-signature'></div>").append(vlink.data.email_signature), { coercionType: Office.CoercionType.Html }); //TODO:: base64.decode(vlink.data.email_signature))
     },
 
     insert_selected_video: function(){
@@ -291,7 +284,7 @@ vlink = {
 
     get_data_success: function(data, textStatus, jqXHR){
         vlink.save_data(data);
-        vlink.show_message.in.main_window(vlink.messages.sign_in_success);
+        // vlink.show_message.in.main_window(vlink.messages.sign_in_success);
 
         views.video_select.ui_init();
 
