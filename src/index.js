@@ -8,16 +8,14 @@
 'use strict';
 
 (function () {
-    console.log("here4");
     Office.onReady(function () {
         // Office is ready
-        console.log("here3");
 
         $(document).ready(function () {
             // The document is ready
 
 // INTIALIZE CODE STARTS HERE
-            vlink.init();
+            //vlink.init();
             views.init();
             // $('#vlink_sign_in').show();
             // $(views.sign_in.button).click(function(){

@@ -133,27 +133,27 @@
                         function(event, ui){
                             views.video_select.clear_search_box();
                     };
-
-                    // $(views.video_select.dropdown.selector).selectmenu({
-                    //     change: function(event, ui){
-                    //         if (ui.item.value == '-1'){
-                    //             vlink.video = null;
-                    //             vlink.embed_code = null;
-                    //             vlink.selected_video_index = -1;
-                    //             vlink.selected_embed_code_index = -1;
-                    //         }
-                    //         else{
-                    //             vlink.set_current_video(ui.item.value);
-                    //             views.video_select.set_video_selection_text(vlink.video.title);
-                    //         }
-                    //     },
+                    debugger;
+                    $(views.video_select.dropdown.selector).selectmenu({
+                        change: function(event, ui){
+                            if (ui.item.value == '-1'){
+                                vlink.video = null;
+                                vlink.embed_code = null;
+                                vlink.selected_video_index = -1;
+                                vlink.selected_embed_code_index = -1;
+                            }
+                            else{
+                                vlink.set_current_video(ui.item.value);
+                                views.video_select.set_video_selection_text(vlink.video.title);
+                            }
+                        },
     
-                    //     select: function(event, ui){
-                    //         views.video_select.clear_search_box();
-                    //     }
-                    // });
+                        select: function(event, ui){
+                            views.video_select.clear_search_box();
+                        }
+                    });
     
-                    // $('.ui-icon.ui-icon-triangle-1-s').css('background-image', "url(" + chrome.extension.getURL('lib/jquery-ui/images/ui-icons_888888_256x240.png') + ")");
+                    $('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("lib/jquery-ui/images/ui-icons_888888_256x240.png")');
                 }
             },
     
@@ -223,9 +223,9 @@
     
             ui_init: function(){
                 var search_source = [];
-    
+                vlink.show_select_video_box();
+                $(views.video_select.selector).removeClass('hide');
                 $(views.video_select.dropdown.selector).empty().append("<option value='-1'></option>");
-    
                 var count = 0;
                 var videos = vlink.data.videos;
                 for(var i = 0; i < videos.length; i++){
@@ -241,11 +241,10 @@
                     else if (s1 > s2) return 1;
                     else return 0;
                 });
-    
+
                 for (var k = 0; k < search_source.length; k++){
                     $(views.video_select.dropdown.selector).append("<option value='" + search_source[k].key + "'>" + search_source[k].value + "</option>");
                 }
-    
     
                 if ($(views.video_select.dropdown.selector + ' option').length == 1)
                     $(views.video_select.dropdown.selector+ ' option').text("No Videos Found");
