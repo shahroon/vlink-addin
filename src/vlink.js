@@ -1,5 +1,5 @@
 vlink = {
-    server_root: 'https://b38450f8.ngrok.io/',
+    server_root: 'https://ac5b2f48.ngrok.io/',
     //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -207,7 +207,6 @@ vlink = {
             vlink.show_message.in.too_many_recipients_modal_box();
             return;
         }
-
         if (vlink.data == null){
             vlink.after_data_sync_callback = vlink.show_select_video_box;
             vlink.get_data();
@@ -241,29 +240,29 @@ vlink = {
 
         views.video_select.tooltip.create();
 
-        $(document).keydown(function(event){
-            if (event.which == 27){
-                $(gmail.compose_message.content_selector).off('click');
-                $(document).off('keydown');
-                views.video_select.tooltip.remove();
-            }
-        });
+        // $(document).keydown(function(event){
+        //     if (event.which == 27){
+        //         $(gmail.compose_message.content_selector).off('click');
+        //         $(document).off('keydown');
+        //         views.video_select.tooltip.remove();
+        //     }
+        // });
+        // TODO: Gmail code to be replaced with Office
+        // $(gmail.compose_message.content_selector).on('click', function(event) {
+        //     cursor_pos_elem = $(vlink.content_cursor.selector);
+        //     if (cursor_pos_elem.length > 0)
+        //         cursor_pos_elem.removeClass(vlink.content_cursor.marker);
 
-        $(gmail.compose_message.content_selector).on('click', function(event) {
-            cursor_pos_elem = $(vlink.content_cursor.selector);
-            if (cursor_pos_elem.length > 0)
-                cursor_pos_elem.removeClass(vlink.content_cursor.marker);
+        //     $(event.target).addClass(vlink.content_cursor.marker);
 
-            $(event.target).addClass(vlink.content_cursor.marker);
+        //     if ($(vlink.content_cursor.selector).length > 0)
+        //         $(vlink.content_cursor.selector).last().prepend(vlink.build_thumbnail_tag());
+        //     else
+        //         $(gmail.compose_message.content_selector).prepend(vlink.build_thumbnail_tag());
 
-            if ($(vlink.content_cursor.selector).length > 0)
-                $(vlink.content_cursor.selector).last().prepend(vlink.build_thumbnail_tag());
-            else
-                $(gmail.compose_message.content_selector).prepend(vlink.build_thumbnail_tag());
-
-            views.video_select.tooltip.remove();
-            $(gmail.compose_message.content_selector).off('click');
-        });
+        //     views.video_select.tooltip.remove();
+        //     $(gmail.compose_message.content_selector).off('click');
+        // });
     },
 
     set_current_video: function (value) {
@@ -312,7 +311,7 @@ vlink = {
 
     preview_selected_video: function(){
         if (vlink.video == null) return;
-
+        console.log(vlink.video.url.preview_url)
         $.ajax({
             url: vlink.video.url.preview_url,
             type: 'get',

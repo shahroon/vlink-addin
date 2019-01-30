@@ -62,8 +62,19 @@ body {
     font-family: arial, sans-serif;
 }
 
-#vlink_sign_in, #vlink-video-select, #vlink-options, #vlink-error-too-many-emails{
+#vlink_sign_in, #vlink-options, #vlink-error-too-many-emails{
     position: fixed;
+    z-index: 899;
+    display: inline-block;
+    border: 1px;
+    border-style: solid;
+    border-color: gray;
+    box-shadow: rgba(0,0,0,0.2) 0 2px 6px;
+    background-color: #ffffff;
+}
+
+#vlink-video-select{
+    position: unset;
     z-index: 899;
     display: inline-block;
     border: 1px;
@@ -96,7 +107,7 @@ body {
 
 #vlink-video-select .vlink-dialog-body {
     height: 190px;
-    width: 550px;
+    width: 300px;
     padding: 20px;
 }
 
@@ -121,7 +132,7 @@ body {
 
 
 #vlink-error-too-many-emails {
-    width: 420px;
+    width: 220px;
 }
 
 #vlink-error-too-many-emails .vlink-dialog-body {

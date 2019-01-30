@@ -133,7 +133,7 @@
                         function(event, ui){
                             views.video_select.clear_search_box();
                     };
-                    debugger;
+                    //debugger;
                     $(views.video_select.dropdown.selector).selectmenu({
                         change: function(event, ui){
                             if (ui.item.value == '-1'){
@@ -153,7 +153,7 @@
                         }
                     });
     
-                    $('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("lib/jquery-ui/images/ui-icons_888888_256x240.png")');
+                    $('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("/node_modules/jquery-ui/images/ui-icons_888888_256x240.png")');
                 }
             },
     
@@ -199,26 +199,28 @@
                 });
     
                 //TODO: Resolve this block
-                // $(views.video_select.search_selector).autocomplete({
-                //     minLength: 0,
-    
-                //     select: function(event, ui){
-                //         vlink.set_current_video(ui.item.key);
-                //         views.video_select.set_video_selection_text(vlink.video.title);
-                //         views.video_select.clear_select_dropdown();
-                //     }
-                // })
-                //     .focus(function(){
-                //     $(this).trigger('keydown');
-                // })
-                //     .click(function(){
-                //     $(this).trigger('keydown');
-                // });
+                $(views.video_select.search_selector).autocomplete({
+                    minLength: 0,
+                    position: {
+                        offset: '20 -100' // Shift 20px to the left, 4px down.
+                    },
+                    select: function(event, ui){
+                        vlink.set_current_video(ui.item.key);
+                        views.video_select.set_video_selection_text(vlink.video.title);
+                        views.video_select.clear_select_dropdown();
+                    }
+                })
+                    .focus(function(){
+                    $(this).trigger('keydown');
+                })
+                    .click(function(){
+                    $(this).trigger('keydown');
+                });
     
                 $(views.video_select.selector).css('left', (window.innerWidth/2 - 275) + 'px');
                 $(views.video_select.selector).css('top', (window.innerHeight/3 - 65) + 'px');
     
-                // $(views.video_select.selector).draggable();
+                //$(views.video_select.selector).draggable();
             },
     
             ui_init: function(){
@@ -233,7 +235,7 @@
                         search_source[count++] = {key: i + "+" + j, value: videos[i].embed_codes[j].title}
                     }
                 }
-    
+
                 search_source.sort(function(a, b){
                     var s1 = a.value.toLowerCase();
                     var s2 = b.value.toLowerCase();
@@ -250,14 +252,14 @@
                     $(views.video_select.dropdown.selector+ ' option').text("No Videos Found");
 
                 //TODO: destroy this
-                    // $(views.video_select.dropdown.selector).selectmenu('destroy');
+                $(views.video_select.dropdown.selector).selectmenu('destroy');
                 views.video_select.dropdown.init();
     
                 if (vlink.selected_video_index != -1 && vlink.selected_embed_code_index != -1)
                     $(views.video_select.dropdown.selector + '-button .ui-selectmenu-text').text(vlink.embed_code.title);
     
                 //TODO: resolve this
-                    // $(views.video_select.search_selector).autocomplete( "option", "source", search_source);
+                $(views.video_select.search_selector).autocomplete( "option", "source", search_source);
             },
     
             ui_reset: function(){
@@ -326,15 +328,8 @@
                     else
                         vlink.show_sign_in();
             })
-                // $('#vlink-ui').appendChild(views.sign_in.init());
-                // $('#vlink-ui').appendChild(views.video_select.init());
-                // $('#vlink-ui').appendChild(views.options.init());
-                // $('#vlink-ui').appendChild(views.dialog.modal.init());
 
-
-                // $('#vlink-ui').html(views.sign_in.init());
-
-                $(views.dialog.close_button_selector).attr('src', 'assets/close_icon.png');
+                $(views.dialog.close_button_selector).attr('src', '/assets/close_icon.png');
             // }));
         },
     
