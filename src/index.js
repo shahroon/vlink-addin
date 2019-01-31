@@ -15,7 +15,7 @@
             // The document is ready
 
 // INTIALIZE CODE STARTS HERE
-            //vlink.init();
+            vlink.init();
             views.init();
             // $('#vlink_sign_in').show();
             // $(views.sign_in.button).click(function(){

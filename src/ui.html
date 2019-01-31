@@ -40,16 +40,16 @@
     </div>
 
     <div id="vlink-video-select" class="hide">
-        <div class="vlink-dialog-header">
+        <!-- <div class="vlink-dialog-header">
             <table>
                 <tbody>
                 <tr>
                     <td>vLink - Engage Your Audience!</td>
-                    <td id="video-select-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
+                    <td id="video-select-cancel-button" class="right"><img class="vlink-close-btn" src="/assets/close_icon.png" alt="Close" aria-label="Close"></td>
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </div> -->
         <div id="vlink-video-select-status-bar" class="hide"></div>
         <div class="vlink-dialog-body">
             <div>What content do you want to engage your audience with?</div>
@@ -65,7 +65,8 @@
                     <td>
                         <div><select id="videos-dropdown"></select></div>
                     </td>
-                </tr> -->
+                </tr>
+                 -->
                 <tr>
                     <td>
                         <div><label>Search available content</label></div>
@@ -82,6 +83,18 @@
                         <div id="vlink-video-title-container">Selection: <div id="vlink-video-title"></div></div>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        Image Size:
+                    </td>
+                    <td>
+                        <select id="preview-size" class="right">
+                            <option value="640x360">640 x 360</option>
+                            <option value="480x270">480 x 270</option>
+                            <option value="320x180">320 x 180</option>
+                        </select>
+                    </td>
+                </tr>
 
                 <tr>
                     <td>
@@ -96,40 +109,7 @@
         </div>
     </div>
 
-    <div id="vlink-options" class="hide">
-        <div class="vlink-dialog-header">
-            <table>
-                <tbody>
-                <tr>
-                    <td>vLink - Options</td>
-                    <td id="options-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="vlink-dialog-body">
-            <div>Options</div>
-            <br>
-            <table>
-                <tr>
-                    <td>
-                        Image Size:
-                    </td>
-                    <td>
-                        <select id="preview-size" class="right">
-                            <option value="640x360">640 x 360</option>
-                            <option value="480x270">480 x 270</option>
-                            <option value="320x180">320 x 180</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <div class="btn-container">
-                <button id="options-ok-button">OK</button>
-            </div>
-        </div>
-    </div>
+
 
     <div id="vlink-insert-video-tooltip">Click to place content</div>
 

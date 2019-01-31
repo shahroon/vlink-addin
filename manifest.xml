@@ -107,10 +107,10 @@
         <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://localhost:3000/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="groupLabel" DefaultValue="My Add-in Group"/>
-        <bt:String id="insertContentLabel"  DefaultValue="My Add-in Tab"/>
-        <bt:String id="insertContentDesc" DefaultValue="Display all properties"/>
-        <bt:String id="insertContentTitle" DefaultValue="Get all properties"/>
+        <bt:String id="groupLabel" DefaultValue=""/>
+        <bt:String id="insertContentLabel"  DefaultValue=""/>
+        <bt:String id="insertContentDesc" DefaultValue=""/>
+        <bt:String id="insertContentTitle" DefaultValue=""/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="insertContentDesc" DefaultValue="Opens a pane displaying all available properties. This is an example of a button that opens a task pane."/>

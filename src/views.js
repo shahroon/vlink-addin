@@ -115,45 +115,45 @@
                 selector: '#videos-dropdown',
     
                 init: function(){
-                    $(views.video_select.dropdown.selector).onchange = 
-                        function(event, ui){
-                            if (ui.item.value == '-1'){
-                                vlink.video = null;
-                                vlink.embed_code = null;
-                                vlink.selected_video_index = -1;
-                                vlink.selected_embed_code_index = -1;
-                            }
-                            else{
-                                vlink.set_current_video(ui.item.value);
-                                views.video_select.set_video_selection_text(vlink.video.title);
-                            }
-                        };
+                    // $(views.video_select.dropdown.selector).onchange = 
+                    //     function(event, ui){
+                    //         if (ui.item.value == '-1'){
+                    //             vlink.video = null;
+                    //             vlink.embed_code = null;
+                    //             vlink.selected_video_index = -1;
+                    //             vlink.selected_embed_code_index = -1;
+                    //         }
+                    //         else{
+                    //             vlink.set_current_video(ui.item.value);
+                    //             views.video_select.set_video_selection_text(vlink.video.title);
+                    //         }
+                    //     };
 
-                    $(views.video_select.dropdown.selector).onselect =
-                        function(event, ui){
-                            views.video_select.clear_search_box();
-                    };
+                    // $(views.video_select.dropdown.selector).onselect =
+                    //     function(event, ui){
+                    //         views.video_select.clear_search_box();
+                    // };
                     //debugger;
-                    $(views.video_select.dropdown.selector).selectmenu({
-                        change: function(event, ui){
-                            if (ui.item.value == '-1'){
-                                vlink.video = null;
-                                vlink.embed_code = null;
-                                vlink.selected_video_index = -1;
-                                vlink.selected_embed_code_index = -1;
-                            }
-                            else{
-                                vlink.set_current_video(ui.item.value);
-                                views.video_select.set_video_selection_text(vlink.video.title);
-                            }
-                        },
+                    // $(views.video_select.dropdown.selector).selectmenu({
+                    //     change: function(event, ui){
+                    //         if (ui.item.value == '-1'){
+                    //             vlink.video = null;
+                    //             vlink.embed_code = null;
+                    //             vlink.selected_video_index = -1;
+                    //             vlink.selected_embed_code_index = -1;
+                    //         }
+                    //         else{
+                    //             vlink.set_current_video(ui.item.value);
+                    //             views.video_select.set_video_selection_text(vlink.video.title);
+                    //         }
+                    //     },
     
-                        select: function(event, ui){
-                            views.video_select.clear_search_box();
-                        }
-                    });
+                    //     select: function(event, ui){
+                    //         views.video_select.clear_search_box();
+                    //     }
+                    // });
     
-                    $('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("/node_modules/jquery-ui/images/ui-icons_888888_256x240.png")');
+                    //$('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("/node_modules/jquery-ui/images/ui-icons_888888_256x240.png")');
                 }
             },
     
@@ -184,7 +184,8 @@
             },
     
             init: function(){
-                views.video_select.dropdown.init();
+                // DropDown Disabled
+                //views.video_select.dropdown.init();
     
                 $(views.video_select.insert_button_selector).click(function(){
                     vlink.insert_selected_video();
@@ -201,14 +202,16 @@
                 //TODO: Resolve this block
                 $(views.video_select.search_selector).autocomplete({
                     minLength: 0,
-                    position: {
-                        offset: '20 -100' // Shift 20px to the left, 4px down.
-                    },
                     select: function(event, ui){
                         vlink.set_current_video(ui.item.key);
                         views.video_select.set_video_selection_text(vlink.video.title);
                         views.video_select.clear_select_dropdown();
-                    }
+                    },
+                //     close : function (event, ui) {
+                //         val = $(views.video_select.search_selector).val();
+                //         $(views.video_select.search_selector).autocomplete( "search", val ); //keep autocomplete open by 
+                //         return false;  
+                //    }
                 })
                     .focus(function(){
                     $(this).trigger('keydown');
@@ -216,7 +219,7 @@
                     .click(function(){
                     $(this).trigger('keydown');
                 });
-    
+                $(".ui-autocomplete").css({top:"-=130px",left:"+=25px"});
                 $(views.video_select.selector).css('left', (window.innerWidth/2 - 275) + 'px');
                 $(views.video_select.selector).css('top', (window.innerHeight/3 - 65) + 'px');
     
@@ -252,8 +255,8 @@
                     $(views.video_select.dropdown.selector+ ' option').text("No Videos Found");
 
                 //TODO: destroy this
-                $(views.video_select.dropdown.selector).selectmenu('destroy');
-                views.video_select.dropdown.init();
+                //$(views.video_select.dropdown.selector).selectmenu('destroy');
+                //views.video_select.dropdown.init();
     
                 if (vlink.selected_video_index != -1 && vlink.selected_embed_code_index != -1)
                     $(views.video_select.dropdown.selector + '-button .ui-selectmenu-text').text(vlink.embed_code.title);
@@ -329,7 +332,7 @@
                         vlink.show_sign_in();
             })
 
-                $(views.dialog.close_button_selector).attr('src', '/assets/close_icon.png');
+                $(views.dialog.close_button_selector).attr('src', '');
             // }));
         },
     
