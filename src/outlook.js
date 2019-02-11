@@ -9,5 +9,19 @@ outlook = {
             }
             return toRecipients.getAsync.length;
         }
+    },
+    insertContent:{
+        video: function(){
+            Office.context.mailbox.item.body.setSelectedDataAsync(
+                "<div id='insert-content'>"+vlink.build_thumbnail_tag()+"</div>",
+                { coercionType: Office.CoercionType.Html }
+                );
+        },
+        signature: function(){
+            Office.context.mailbox.item.body.setAsync(
+                "<div id='email-signature'>"+base64.decode(vlink.data.email_signature)+"</div>",
+                { coercionType: Office.CoercionType.Html });
+
+        }
     }
 };

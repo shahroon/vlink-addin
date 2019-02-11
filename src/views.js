@@ -43,7 +43,6 @@
                 var status_bar = $(views.status_bar.element_selector).clone();
                 status_bar.attr('id', views.new_message_status_bar.selector.split('#')[1]);
                 status_bar.val('');
-                $(gmail.compose_message.content_table_body_selector).prepend($("<tr></tr>").append($("<td></td>").append(status_bar)));
             }
         },
     
@@ -94,7 +93,6 @@
                 $(views.sign_in.selector).css('left', (window.innerWidth/2 - 125) + 'px');
                 $(views.sign_in.selector).css('top', (window.innerHeight/3 - 100) + 'px');
     
-                // $(views.sign_in.selector).draggable();
             },
     
             hide: function(){
@@ -111,51 +109,6 @@
             search_selector: '#videos-search',
             status_bar_selector: '#vlink-video-select-status-bar',
             
-            dropdown: {
-                selector: '#videos-dropdown',
-    
-                init: function(){
-                    // $(views.video_select.dropdown.selector).onchange = 
-                    //     function(event, ui){
-                    //         if (ui.item.value == '-1'){
-                    //             vlink.video = null;
-                    //             vlink.embed_code = null;
-                    //             vlink.selected_video_index = -1;
-                    //             vlink.selected_embed_code_index = -1;
-                    //         }
-                    //         else{
-                    //             vlink.set_current_video(ui.item.value);
-                    //             views.video_select.set_video_selection_text(vlink.video.title);
-                    //         }
-                    //     };
-
-                    // $(views.video_select.dropdown.selector).onselect =
-                    //     function(event, ui){
-                    //         views.video_select.clear_search_box();
-                    // };
-                    //debugger;
-                    // $(views.video_select.dropdown.selector).selectmenu({
-                    //     change: function(event, ui){
-                    //         if (ui.item.value == '-1'){
-                    //             vlink.video = null;
-                    //             vlink.embed_code = null;
-                    //             vlink.selected_video_index = -1;
-                    //             vlink.selected_embed_code_index = -1;
-                    //         }
-                    //         else{
-                    //             vlink.set_current_video(ui.item.value);
-                    //             views.video_select.set_video_selection_text(vlink.video.title);
-                    //         }
-                    //     },
-    
-                    //     select: function(event, ui){
-                    //         views.video_select.clear_search_box();
-                    //     }
-                    // });
-    
-                    //$('.ui-icon.ui-icon-triangle-1-s').css('background-image', 'url("/node_modules/jquery-ui/images/ui-icons_888888_256x240.png")');
-                }
-            },
     
             tooltip: {
                 id: 'vlink-insert-video-tooltip',
@@ -164,7 +117,6 @@
                 create: function(){
                     views.video_select.tooltip.instance = document.getElementById(views.video_select.tooltip.id);
                     views.video_select.tooltip.instance.style.display = 'block';
-    
                     document.addEventListener('mousemove', views.video_select.tooltip.move, false);
                 },
     
@@ -184,8 +136,6 @@
             },
     
             init: function(){
-                // DropDown Disabled
-                //views.video_select.dropdown.init();
     
                 $(views.video_select.insert_button_selector).click(function(){
                     vlink.insert_selected_video();
@@ -207,11 +157,6 @@
                         views.video_select.set_video_selection_text(vlink.video.title);
                         views.video_select.clear_select_dropdown();
                     },
-                //     close : function (event, ui) {
-                //         val = $(views.video_select.search_selector).val();
-                //         $(views.video_select.search_selector).autocomplete( "search", val ); //keep autocomplete open by 
-                //         return false;  
-                //    }
                 })
                     .focus(function(){
                     $(this).trigger('keydown');
@@ -223,14 +168,12 @@
                 $(views.video_select.selector).css('left', (window.innerWidth/2 - 275) + 'px');
                 $(views.video_select.selector).css('top', (window.innerHeight/3 - 65) + 'px');
     
-                //$(views.video_select.selector).draggable();
             },
     
             ui_init: function(){
                 var search_source = [];
                 vlink.show_select_video_box();
                 $(views.video_select.selector).removeClass('hide');
-                $(views.video_select.dropdown.selector).empty().append("<option value='-1'></option>");
                 var count = 0;
                 var videos = vlink.data.videos;
                 for(var i = 0; i < videos.length; i++){
@@ -247,20 +190,6 @@
                     else return 0;
                 });
 
-                for (var k = 0; k < search_source.length; k++){
-                    $(views.video_select.dropdown.selector).append("<option value='" + search_source[k].key + "'>" + search_source[k].value + "</option>");
-                }
-    
-                if ($(views.video_select.dropdown.selector + ' option').length == 1)
-                    $(views.video_select.dropdown.selector+ ' option').text("No Videos Found");
-
-                //TODO: destroy this
-                //$(views.video_select.dropdown.selector).selectmenu('destroy');
-                //views.video_select.dropdown.init();
-    
-                if (vlink.selected_video_index != -1 && vlink.selected_embed_code_index != -1)
-                    $(views.video_select.dropdown.selector + '-button .ui-selectmenu-text').text(vlink.embed_code.title);
-    
                 //TODO: resolve this
                 $(views.video_select.search_selector).autocomplete( "option", "source", search_source);
             },
@@ -314,7 +243,6 @@
                 $(views.options.selector).css('left', (window.innerWidth/2 - 100) + 'px');
                 $(views.options.selector).css('top', (window.innerHeight/3 - 50) + 'px');
     
-                // $(views.options.selector).draggable();
             }
         },
     
@@ -324,7 +252,6 @@
                         views.sign_in.init();
                         views.video_select.init();
                         views.options.init();
-                        views.dialog.modal.init();
                         api_credentials.load();
                     if (api_credentials.token != null)
                         vlink.get_data();

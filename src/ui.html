@@ -56,17 +56,6 @@
             <br>
             <table>
                 <tbody>
-                <!-- <tr>
-                    <td>
-                        <div><label>Choose from most popular content</label></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <div><select id="videos-dropdown"></select></div>
-                    </td>
-                </tr>
-                 -->
                 <tr>
                     <td>
                         <div><label>Search available content</label></div>
@@ -85,22 +74,31 @@
                 </tr>
                 <tr>
                     <td>
-                        Image Size:
+                        <div>
+                            <span>Image Size:</span>
+                            <span>
+                                <select id="preview-size" class="right">
+                                    <option value="640x360">640 x 360</option>
+                                    <option value="480x270">480 x 270</option>
+                                    <option value="320x180">320 x 180</option>
+                                </select>
+                            </span>
+                        </div>
                     </td>
                     <td>
-                        <select id="preview-size" class="right">
-                            <option value="640x360">640 x 360</option>
-                            <option value="480x270">480 x 270</option>
-                            <option value="320x180">320 x 180</option>
-                        </select>
+
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <div>
-                            <button id="preview-button">Preview Video</button> 
-                            <button id="insert-video-button">Insert Content Link</button>
+                        <div class="ui-vlink-addin-btns">
+                            <span>
+                                <button id="preview-button">Preview Video</button>
+                            </span>
+                            <span>
+                                <button id="insert-video-button">Insert Content Link</button>
+                            </span> 
                         </div>
                     </td>
                 </tr>
@@ -108,10 +106,6 @@
             </table>
         </div>
     </div>
-
-
-
-    <div id="vlink-insert-video-tooltip">Click to place content</div>
 
     <div id="vlink-modalDialog" class="hide">
         <div id="vlink-error-too-many-emails" class="hide">
@@ -130,5 +124,10 @@
                 <div>In order to track your recipients' activity the vLink plugin must send separate emails to each contact</div>
             </div>
         </div>
+    </div>
+    <div id="footer">
+        <span>
+            powered by vLink Solutions
+        </span>
     </div>
 </div>

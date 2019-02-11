@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    padding-bottom: 60px;
 }
 
 #vlink-ui{
@@ -269,6 +270,11 @@ body {
     background-image: none;
 }
 
+.ui-vlink-addin-btns{
+    text-align: center;
+    padding-top: 1cm;
+}
+
 .right{
     text-align: right;
 }
@@ -324,3 +330,15 @@ table {
 #vlink-modalDialog.hide {
     display: none;
 }
+
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    text-align: center;
+ }
+
+ .ui-helper-hidden-accessible{
+     display: none;
+ }

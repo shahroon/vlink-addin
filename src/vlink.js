@@ -1,5 +1,5 @@
 vlink = {
-    server_root: 'https://2f2fbfe3.ngrok.io/',
+    server_root: 'https://0135677b.ngrok.io/',
     //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -11,7 +11,7 @@ vlink = {
     after_data_sync_callback: null,
 
     content_cursor: {
-        selector: gmail.compose_message.content_selector + ' .vlink-cur-pos',
+        selector: ' .vlink-cur-pos',
         marker: 'vlink-cur-pos'
     },
 
@@ -97,7 +97,7 @@ vlink = {
 
                 vlink.get_data();
                 window.clearInterval(window.intervalId);
-        }, 200);
+        }, 300);
     },
 
     build_uuid: function(){
@@ -176,7 +176,7 @@ vlink = {
 
     get_recipient_uuid: function(){
         if (vlink.recipient_uuid == null){
-            vlink.recipient_uuid = base64.encode(vlink.encrypt(gmail.recipients.first_email(), vlink.data.puid));
+            //vlink.recipient_uuid = base64.encode(vlink.encrypt(gmail.recipients.first_email(), vlink.data.puid));
         }
 
         return vlink.recipient_uuid;
@@ -216,17 +216,9 @@ vlink = {
         views.show($(views.video_select.selector));
     },
 
-    // decode_base64: function(base64_encoded){
-    //     var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9\+\/\=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/\r\n/g,"\n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
-    //     return Base64.decode(base64_encoded);
-    // },
-
     insert_email_signature: function(){
         if ($('#email-signature').length > 0) return;
-        Office.context.mailbox.item.body.setAsync(
-            "<div id='email-signature'>"+base64.decode(vlink.data.email_signature)+"</div>",
-            { coercionType: Office.CoercionType.Html, 
-            asyncContext: { var3: 1, var4: 2 } });
+        outlook.insertContent.signature();
     },
 
     insert_selected_video: function(){
@@ -234,46 +226,9 @@ vlink = {
             vlink.show_message.in.select_video_box(vlink.messages.no_video_selected);
             return;
         }
-
-        views.hide($(views.video_select.selector));
-
-        views.video_select.tooltip.create();
-        // INSERT VIDEO CODE GOES HERE
-        // $(document).keydown(function(event){
-        //     if (event.which == 27){
-        //         //$(gmail.compose_message.content_selector).off('click');
-        //         $(document).off('keydown');
-        //         views.video_select.tooltip.remove();
-        //     }
-        // });
-
-        // Office.context.mailbox.item.body.setSelectedDataAsync(content,
-        //     {coercionType: Office.CoercionType.Html}, function(result) {
-        //       if (result.status == 'failed') {
-        //           console.log(":::::::::::ERROR:::::::::");
-        //         //showError('Could not insert gist: ' + result.error.message);
-        //       }
-        //   });     
-        Office.context.mailbox.item.body.setAsync(
-            "<div id='insert-content'>"+vlink.build_thumbnail_tag()+"</div>",
-            { coercionType: Office.CoercionType.Html, 
-            asyncContext: { var3: 1, var4: 2 } });
-        // TODO: Gmail code to be replaced with Office
-        // $(gmail.compose_message.content_selector).on('click', function(event) {
-        //     cursor_pos_elem = $(vlink.content_cursor.selector);
-        //     if (cursor_pos_elem.length > 0)
-        //         cursor_pos_elem.removeClass(vlink.content_cursor.marker);
-
-        //     $(event.target).addClass(vlink.content_cursor.marker);
-
-        //     if ($(vlink.content_cursor.selector).length > 0)
-        //         $(vlink.content_cursor.selector).last().prepend(vlink.build_thumbnail_tag());
-        //     else
-        //         $(gmail.compose_message.content_selector).prepend(vlink.build_thumbnail_tag());
-
-        //     views.video_select.tooltip.remove();
-        //     $(gmail.compose_message.content_selector).off('click');
-        // });
+        
+        outlook.insertContent.video();
+        Office.context.ui.closeContainer();
     },
 
     set_current_video: function (value) {
@@ -301,7 +256,6 @@ vlink = {
     get_data_success: function(data, textStatus, jqXHR){
         vlink.save_data(data);
         // vlink.show_message.in.main_window(vlink.messages.sign_in_success);
-        console.log(data);
         views.video_select.ui_init();
         if (vlink.after_data_sync_callback != null){
             vlink.after_data_sync_callback();
@@ -361,10 +315,10 @@ vlink = {
     },
 
     post_email: function(email){
-        if ($(gmail.subject_box_selector).val() == ""){
-            vlink.show_message.in.new_message_box(vlink.messages.no_subject);
-            return vlink.messages.no_subject.code;
-        }
+        // if ($(gmail.subject_box_selector).val() == ""){
+        //     vlink.show_message.in.new_message_box(vlink.messages.no_subject);
+        //     return vlink.messages.no_subject.code;
+        // }
 
         vlink.clean_email_for_post();
         vlink.add_contact_uid_to_video_link_in_signature();
@@ -375,10 +329,10 @@ vlink = {
         }
 
         vlink.add_contact_uid_to_video_link_in_body();
-        gmail.compose_message.append_content(vlink.build_tracking_image_url());
+        //gmail.compose_message.append_content(vlink.build_tracking_image_url());
 
-        var subject = base64.encode($(gmail.subject_box_selector).val());
-        var body = base64.encode($(gmail.compose_message.content_selector).html());
+        //var subject = base64.encode($(gmail.subject_box_selector).val());
+        //var body = base64.encode($(gmail.compose_message.content_selector).html());
 
         window.setTimeout(function() {
             $.ajax({
@@ -415,22 +369,3 @@ base64 = {
         return decodeURIComponent(escape(window.atob(string)));
     }
 };
-// chrome.runtime.onMessage.addListener(
-//     function(request, sender, sendResponse) {
-//         switch (request.action){
-//             case 'sync':
-//                 if (request.data.username == null)
-//                     vlink.get_data();
-//                 else
-//                     vlink.sign_in_request(request.data.username, request.data.password);
-//                 break;
-
-//             case 'show_options':
-//                 views.show($(views.options.selector));
-//                 break;
-
-//             case 'logout':
-//                 vlink.logout();
-//                 break;
-//         }
-//     });

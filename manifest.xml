@@ -107,10 +107,10 @@
         <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://localhost:3000/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="groupLabel" DefaultValue=""/>
-        <bt:String id="insertContentLabel"  DefaultValue=""/>
-        <bt:String id="insertContentDesc" DefaultValue=""/>
-        <bt:String id="insertContentTitle" DefaultValue=""/>
+        <bt:String id="groupLabel" DefaultValue="vLink - Insert Content"/>
+        <bt:String id="insertContentLabel"  DefaultValue="vLink - Insert Content"/>
+        <bt:String id="insertContentDesc" DefaultValue="vLink - Insert Content"/>
+        <bt:String id="insertContentTitle" DefaultValue="vLink - Insert Content"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="insertContentDesc" DefaultValue="Opens a pane displaying all available properties. This is an example of a button that opens a task pane."/>
