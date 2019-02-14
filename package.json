@@ -7,7 +7,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js --https --key ./certs/server.key --cert ./certs/server.crt --cacert ./certs/ca.crt --port 3000",
     "sideload": "office-toolbox sideload -m manifest.xml -a Outlook",
-    "build": "webpack --config webpack.prod.js --https --key ./certs/server.key --cert ./certs/server.crt --cacert ./certs/ca.crt --port 8080",
+    "build": "webpack --config webpack.prod.js --port 8080",
     "validate": "office-toolbox validate -m manifest.xml"
   },
   "dependencies": {
