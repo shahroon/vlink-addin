@@ -8,6 +8,9 @@
 'use strict';
 
 (function () {
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('Looks like we are in development mode!');
+    }
     Office.onReady(function () {
         $(document).ready(function () {
             views.init();    

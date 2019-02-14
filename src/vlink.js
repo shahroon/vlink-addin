@@ -1,6 +1,6 @@
 vlink = {
-    server_root: 'https://0135677b.ngrok.io/',
-    //server_root: 'https://platform.vlinksolutions.com/',
+    //server_root: 'https://0135677b.ngrok.io/',
+    server_root: 'https://staging.vlinksolutions.com/',
     data: null,
     video: null,
     embed_code: null,

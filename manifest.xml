@@ -12,7 +12,7 @@
   <Id>4d5e7f26-9c46-496e-9135-d26eb770bf8b</Id>
 
   <!--Version. Updates from the store only get triggered if there is a version change. -->
-  <Version>1.0.0.0</Version>
+  <Version>1.0.0.1</Version>
   <ProviderName>vlink Solutions</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
@@ -20,8 +20,8 @@
   <Description DefaultValue="[vlink Addin for Outlook]"/>
 
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
-  <IconUrl DefaultValue="https://localhost:3000/assets/vLink_32x32.png" />
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/vLink_80x80.png"/>
+  <IconUrl DefaultValue="https://staging.vlinksolutions.com/vlink_addin/assets/vLink_32x32.png" />
+  <HighResolutionIconUrl DefaultValue="https://staging.vlinksolutions.com/vlink_addin/vLink_80x80.png"/>
 
   <!--If you plan to submit this add-in to the Office Store, uncomment the SupportUrl element below-->
   <!-- <SupportUrl DefaultValue="[Insert the URL of a page that provides support information for the app]" /> -->
@@ -43,7 +43,7 @@
   <FormSettings>
     <Form xsi:type="ItemRead">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/index.html"/>
+        <SourceLocation DefaultValue="https://staging.vlinksolutions.com/vlink_addin/index.html"/>
         <RequestedHeight>250</RequestedHeight>
       </DesktopSettings>
     </Form>
@@ -98,13 +98,13 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="icon16" DefaultValue="https://localhost:3000/assets/vLink_16x16.png"/>
-        <bt:Image id="icon32" DefaultValue="https://localhost:3000/assets/vLink_32x32.png"/>
-        <bt:Image id="icon80" DefaultValue="https://localhost:3000/assets/vLink_80x80.png"/>
+        <bt:Image id="icon16" DefaultValue="https://staging.vlinksolutions.com/vlink_addin/vLink_16x16.png"/>
+        <bt:Image id="icon32" DefaultValue="https://staging.vlinksolutions.com/vlink_addin/vLink_32x32.png"/>
+        <bt:Image id="icon80" DefaultValue="https://staging.vlinksolutions.com/vlink_addin/vLink_80x80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="functionFile" DefaultValue="https://localhost:3000/function-file/function-file.html"/>
-        <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://localhost:3000/index.html"/>
+        <bt:Url id="functionFile" DefaultValue="https://staging.vlinksolutions.com/vlink_addin/function-file/function-file.html"/>
+        <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://staging.vlinksolutions.com/vlink_addin/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="groupLabel" DefaultValue="vLink - Insert Content"/>
