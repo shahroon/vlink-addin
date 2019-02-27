@@ -1,3 +1,4 @@
+import { base64 } from './vlink.js';
 outlook = {
     recipients: {
         count: function(){
@@ -25,3 +26,5 @@ outlook = {
         }
     }
 };
+
+export { outlook };

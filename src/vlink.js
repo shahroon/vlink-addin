@@ -1,6 +1,8 @@
-vlink = {
-    server_root: 'https://0135677b.ngrok.io/',
-    //server_root: 'https://platform.vlinksolutions.com/',
+import { views } from './views.js';
+import { api_credentials } from './api_credentials';
+var vlink = {
+    //server_root: 'https://d96838ed.ngrok.io/',
+    server_root: 'https://vlink-staging.vteamslabs.com',
     data: null,
     video: null,
     embed_code: null,
@@ -360,7 +362,7 @@ vlink = {
         vlink.show_message.in.main_window(vlink.messages.logged_out);
     }
 };
-base64 = {
+var base64 = {
     encode: function(string){
         return window.btoa(unescape(encodeURIComponent(string)));
     },
@@ -369,3 +371,5 @@ base64 = {
         return decodeURIComponent(escape(window.atob(string)));
     }
 };
+
+export { vlink, base64 };

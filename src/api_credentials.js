@@ -1,4 +1,4 @@
-api_credentials = {
+var api_credentials = {
     token: null,
     token_type: null,
 
@@ -28,3 +28,5 @@ api_credentials = {
         localStorage.removeItem('token_type');
     }
 };
+
+export { api_credentials };

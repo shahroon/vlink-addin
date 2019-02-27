@@ -6,3 +6,5 @@ options = {
       }
   }
 };
+
+export { options };
