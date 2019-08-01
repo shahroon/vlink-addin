@@ -1,8 +1,10 @@
 import { views } from './views.js';
 import { api_credentials } from './api_credentials';
+import { outlook } from './outlook';
+import { options } from './options';
 var vlink = {
     //server_root: 'https://d96838ed.ngrok.io/',
-    server_root: 'https://vlink-staging.vteamslabs.com/',
+    server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
     embed_code: null,

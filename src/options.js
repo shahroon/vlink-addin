@@ -1,4 +1,4 @@
-options = {
+var options = {
   preview_image: {
       size: {
           width: null,

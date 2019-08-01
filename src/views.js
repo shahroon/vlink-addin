@@ -1,6 +1,7 @@
 
     import { vlink } from './vlink.js';
     import { api_credentials } from './api_credentials';
+    import { options } from './options';
     var views = {
         selecty_change: function(event, ui){ 
         if (ui.item.value == '-1'){
@@ -250,7 +251,7 @@
     
         init: function(){
             
-            $('body').prepend('<div id="div1"></div>').load('/src/ui.html', function(){
+            $('body').prepend('<div id="div1"></div>').load('ui.html', function(){
                         views.sign_in.init();
                         views.video_select.init();
                         views.options.init();

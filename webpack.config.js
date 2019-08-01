@@ -33,6 +33,6 @@ module.exports = {
             template: './function-file/function-file.html',
             filename: 'function-file/function-file.html',
             chunks: ['function-file']
-        })
+        }),
     ]
 };

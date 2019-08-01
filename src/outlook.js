@@ -1,8 +1,9 @@
-import { base64 } from './vlink.js';
-outlook = {
+import { vlink, base64 } from './vlink.js';
+var outlook = {
     recipients: {
         count: function(){
             var item = Office.context.mailbox.item;
+            var toRecipients = "none";
             if (item.itemType == Office.MailboxEnums.ItemType.Appointment)
                 toRecipients = item.requiredAttendees;
             else {
