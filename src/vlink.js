@@ -2,8 +2,10 @@ import { views } from './views.js';
 import { api_credentials } from './api_credentials';
 import { outlook } from './outlook';
 import { options } from './options';
+import GibberishAES  from 'gibberish-aes/dist/gibberish-aes-1.0.0';
+
 var vlink = {
-    //server_root: 'https://d96838ed.ngrok.io/',
+    //server_root: 'https://c9db0073.ngrok.io/',
     server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -92,14 +94,14 @@ var vlink = {
     init: function(){
         window.intervalId = window.setInterval(function(){
 
-                vlink.show_select_video_box;
+                //vlink.show_select_video_box;
                 
                 views.new_message_status_bar.init();
                 vlink.message_uuid = vlink.build_uuid();
                 vlink.after_data_sync_callback = vlink.insert_email_signature;
                 vlink.video = null;
 
-                vlink.get_data();
+                //vlink.get_data(); // Causing duplicate requestes to server, need to figure out the issue, till then it should remain commented.
                 window.clearInterval(window.intervalId);
         }, 300);
     },
@@ -122,11 +124,11 @@ var vlink = {
             },
 
             sign_in_box: function(message){
-                views.show_message($(views.sign_in.status_bar), message)
+                views.show_message($(views.sign_in.status_bar), message);
             },
 
             select_video_box: function(message){
-                views.show_message($(views.video_select.status_bar_selector), message)
+                views.show_message($(views.video_select.status_bar_selector), message);
             },
 
             too_many_recipients_modal_box: function(){
@@ -135,7 +137,9 @@ var vlink = {
         }
     },
 
-    save_data: function(data){vlink.data = data;},
+    save_data: function(data){
+        vlink.data = data;
+    },
 
     load_data: function(){return vlink.data;},
 
@@ -175,23 +179,22 @@ var vlink = {
                 api_credentials.clear();
                 vlink.show_message.in.sign_in_box(vlink.messages.network_error);
             }
-        })
+        });
     },
 
     get_recipient_uuid: function(){
         if (vlink.recipient_uuid == null){
-            //vlink.recipient_uuid = base64.encode(vlink.encrypt(gmail.recipients.first_email(), vlink.data.puid));
-        }
-
+            vlink.recipient_uuid = base64.encode(vlink.encrypt(outlook.recipients.firstRecipient.trim(), vlink.data.puid));
+            }
         return vlink.recipient_uuid;
     },
 
     build_redirect_url: function(){
-        return vlink.embed_code.video_url + "&rid=[[contact::uid2]]&mid=" + vlink.message_uuid;
+        return vlink.embed_code.video_url + "&rid="+ vlink.recipient_uuid + "&mid=" + vlink.message_uuid;
     },
 
     build_thumbnail_tag: function(){
-        return "<div id='vlink-video-link'><a href='" + vlink.build_redirect_url() + "'><img src='" + vlink.video.url.watermark_url + "' width='" + options.preview_image.size.width +"' height='" + options.preview_image.size.height + "'></img></a></div><br>" + vlink.video.description + "<br>";
+        return "<div id='vlink-video-link'><a href='" + vlink.build_redirect_url() + "'><img src='" + vlink.video.url.watermark_url + "' width='" + options.preview_image.size.width +"' height='" + options.preview_image.size.height + "'></img></a></div><br>" + ($(views.add_desc.element_selector).is(':checked') ? vlink.video.description : "") + "<br>";
     },
 
     build_tracking_image_url: function(){
@@ -200,29 +203,12 @@ var vlink = {
     },
 
     show_select_video_box: function(){
-        var number_of_recipients = outlook.recipients.count();
-        if (number_of_recipients == 0){
-            vlink.show_message.in.new_message_box(vlink.messages.no_recipient);
-            return;
-        }
-
-        if (number_of_recipients > 1){
-            vlink.show_message.in.too_many_recipients_modal_box();
-            return;
-        }
-        if (vlink.data == null){
-            vlink.after_data_sync_callback = vlink.show_select_video_box;
-            vlink.get_data();
-            return;
-        }
-
         views.video_select.ui_reset();
         views.show($(views.video_select.selector));
     },
 
     insert_email_signature: function(){
-        if ($('#email-signature').length > 0) return;
-        outlook.insertContent.signature();
+        //outlook.insertContent.signature();
     },
 
     insert_selected_video: function(){
@@ -230,9 +216,9 @@ var vlink = {
             vlink.show_message.in.select_video_box(vlink.messages.no_video_selected);
             return;
         }
-        
+
         outlook.insertContent.video();
-        Office.context.ui.closeContainer();
+        //Office.context.ui.closeContainer();
     },
 
     set_current_video: function (value) {
@@ -259,8 +245,11 @@ var vlink = {
 
     get_data_success: function(data, textStatus, jqXHR){
         vlink.save_data(data);
-        // vlink.show_message.in.main_window(vlink.messages.sign_in_success);
         views.video_select.ui_init();
+        if (textStatus == "success"){
+            outlook.signatureExist(); 
+        }
+
         if (vlink.after_data_sync_callback != null){
             vlink.after_data_sync_callback();
             vlink.after_data_sync_callback = null;
@@ -280,7 +269,6 @@ var vlink = {
 
     preview_selected_video: function(){
         if (vlink.video == null) return;
-        console.log(vlink.video.url.preview_url)
         $.ajax({
             url: vlink.video.url.preview_url,
             type: 'get',
@@ -299,7 +287,7 @@ var vlink = {
     },
 
     add_contact_uid_to_video_link_in_signature: function(){
-        signature_element = document.getElementById('email-signature');
+        signature_element = document.getElementById('x_email-signature');
 
         original_html = signature_element.innerHTML;
         result_html = original_html.replace("[[contact::get_uid2]]", vlink.get_recipient_uuid());
@@ -331,8 +319,8 @@ var vlink = {
             vlink.recipient_uuid = null;
             return;
         }
-
-        vlink.add_contact_uid_to_video_link_in_body();
+        //Done in outlook.insertContent.video
+        //vlink.add_contact_uid_to_video_link_in_body();
         //gmail.compose_message.append_content(vlink.build_tracking_image_url());
 
         //var subject = base64.encode($(gmail.subject_box_selector).val());
@@ -351,7 +339,7 @@ var vlink = {
                     rid: vlink.get_recipient_uuid(),
                     vid: vlink.embed_code ? vlink.embed_code.id : null
                 }
-            })
+            });
         }, 1000);
     },
 

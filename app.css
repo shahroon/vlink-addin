@@ -13,7 +13,7 @@ body {
 #vlink-video-select-status-bar {
     display: block;
     padding: 5px;
-    background-color: darkgreen;
+    /* background-color: darkgreen; */
     text-align: center;
     font-size: 10pt;
     font-family: arial, sans-serif;
@@ -65,7 +65,7 @@ body {
 }
 
 #vlink_sign_in, #vlink-options, #vlink-error-too-many-emails{
-    position: fixed;
+    /* position: fixed; */
     z-index: 899;
     display: inline-block;
     border: 1px;

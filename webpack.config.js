@@ -34,5 +34,5 @@ module.exports = {
             filename: 'function-file/function-file.html',
             chunks: ['function-file']
         }),
-    ]
+    ],
 };

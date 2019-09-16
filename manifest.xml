@@ -20,6 +20,7 @@
   <Description DefaultValue="[vlink Addin for Outlook]"/>
 
   <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
+  <!-- https://platform.vlinksolutions.com/outlook_addin/assets/vLink_32x32.png -->
   <IconUrl DefaultValue="https://platform.vlinksolutions.com/outlook_addin/assets/vLink_32x32.png" />
   <HighResolutionIconUrl DefaultValue="https://platform.vlinksolutions.com/outlook_addin/assets/vLink_80x80.png"/>
 
@@ -37,7 +38,7 @@
   </Hosts>
   <Requirements>
     <Sets>
-      <Set Name="Mailbox" MinVersion="1.1" />
+      <Set Name="Mailbox" MinVersion="1.7" />
     </Sets>
   </Requirements>
   <FormSettings>
@@ -57,7 +58,7 @@
 
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Requirements>
-      <bt:Sets DefaultMinVersion="1.3">
+      <bt:Sets DefaultMinVersion="1.7">
         <bt:Set Name="Mailbox" />
       </bt:Sets>
     </Requirements>
@@ -107,10 +108,9 @@
         <bt:Url id="messageReadTaskPaneUrl" DefaultValue="https://platform.vlinksolutions.com/outlook_addin/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="groupLabel" DefaultValue="vLink - Insert Content"/>
-        <bt:String id="insertContentLabel"  DefaultValue="vLink - Insert Content"/>
-        <bt:String id="insertContentDesc" DefaultValue="vLink - Insert Content"/>
-        <bt:String id="insertContentTitle" DefaultValue="vLink - Insert Content"/>
+        <bt:String id="groupLabel" DefaultValue="vLink"/>
+        <bt:String id="insertContentLabel"  DefaultValue="Insert Content"/>
+        <bt:String id="insertContentTitle" DefaultValue="v"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="insertContentDesc" DefaultValue="Opens a pane displaying all available properties. This is an example of a button that opens a task pane."/>

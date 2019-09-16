@@ -2,6 +2,8 @@
     import { vlink } from './vlink.js';
     import { api_credentials } from './api_credentials';
     import { options } from './options';
+    import { outlook } from './outlook.js';
+
     var views = {
         selecty_change: function(event, ui){ 
         if (ui.item.value == '-1'){
@@ -37,6 +39,10 @@
     
         status_bar: {
             element_selector: '#status-bar'
+        },
+
+        add_desc: {
+            element_selector: '#add-desc'
         },
     
         new_message_status_bar: {
@@ -175,7 +181,7 @@
     
             ui_init: function(){
                 var search_source = [];
-                vlink.show_select_video_box();
+                //vlink.show_select_video_box();
                 $(views.video_select.selector).removeClass('hide');
                 var count = 0;
                 var videos = vlink.data.videos;
@@ -250,7 +256,7 @@
         },
     
         init: function(){
-            
+            // **/src/ui.html in local
             $('body').prepend('<div id="div1"></div>').load('ui.html', function(){
                         views.sign_in.init();
                         views.video_select.init();
