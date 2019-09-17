@@ -5,8 +5,8 @@ import { options } from './options';
 import GibberishAES  from 'gibberish-aes/dist/gibberish-aes-1.0.0';
 
 var vlink = {
-    //server_root: 'https://c9db0073.ngrok.io/',
-    server_root: 'https://platform.vlinksolutions.com/',
+    server_root: 'https://09858c3c.ngrok.io/',
+    //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
     embed_code: null,

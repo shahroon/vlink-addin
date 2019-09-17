@@ -257,7 +257,7 @@
     
         init: function(){
             // **/src/ui.html in local
-            $('body').prepend('<div id="div1"></div>').load('ui.html', function(){
+            $('body').prepend('<div id="div1"></div>').load('/src/ui.html', function(){
                         views.sign_in.init();
                         views.video_select.init();
                         views.options.init();
