@@ -5,7 +5,7 @@ import { options } from './options';
 import GibberishAES  from 'gibberish-aes/dist/gibberish-aes-1.0.0';
 
 var vlink = {
-    server_root: 'https://09858c3c.ngrok.io/',
+    server_root: 'https://f296201f.ngrok.io/',
     //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -183,9 +183,14 @@ var vlink = {
     },
 
     get_recipient_uuid: function(){
-        if (vlink.recipient_uuid == null){
-            vlink.recipient_uuid = base64.encode(vlink.encrypt(outlook.recipients.firstRecipient.trim(), vlink.data.puid));
-            }
+        
+        //if (vlink.recipient_uuid == null){
+            if(outlook.recipients.firstRecipient != null){
+                vlink.recipient_uuid = base64.encode(vlink.encrypt(outlook.recipients.firstRecipient.trim(), vlink.data.puid));
+            }else{
+                vlink.recipient_uuid = "[[contact::get_uid2]]";
+            } 
+        //}
         return vlink.recipient_uuid;
     },
 
@@ -247,7 +252,7 @@ var vlink = {
         vlink.save_data(data);
         views.video_select.ui_init();
         if (textStatus == "success"){
-            outlook.signatureExist(); 
+            outlook.recipients.getRecipients();
         }
 
         if (vlink.after_data_sync_callback != null){

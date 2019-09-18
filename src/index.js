@@ -10,7 +10,7 @@ import { outlook } from './outlook.js';
 
 Office.onReady(function () {
     $(document).ready(function () {  
-        outlook.recipients.zeroRecipient();       
+        outlook.recipients.checkRecipients();       
         views.init();    
         vlink.init();
 

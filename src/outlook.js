@@ -3,33 +3,30 @@ import { views } from './views.js';
 var outlook = {
     recipients: {
         checkRecipients: function(){
-            function recipientUpdated(eventarg) {            
-                if (eventarg.type === "olkRecipientsChanged") {
-                  outlook.signatureExist();
+            function recipientUpdated(eventarg) {      
+                if (eventarg.changedRecipientFields.to) {
+                  outlook.recipients.getRecipients();
+                  outlook.updateContent();
                   return;
                 }
               }
             function myCallback(){
                 console.log("Callback");
-            }  
-              
-            Office.context.mailbox.item.addHandlerAsync(Office.EventType.RecipientsChanged, recipientUpdated, myCallback);
-            
+            }                
+            Office.context.mailbox.item.addHandlerAsync(Office.EventType.RecipientsChanged, recipientUpdated, myCallback);           
         },
         getRecipients: function(){
             var item = Office.context.mailbox.item.to;
             function callback(asyncResult) {
                 var arrayOfToRecipients = asyncResult.value;
-                console.log(arrayOfToRecipients);
-                if (arrayOfToRecipients.length == 0){
-                    console.log("Please add recipient, then proceed..");
-                    return;
-                }
                 
                 if (arrayOfToRecipients.length == 1){
-                    var contactID = arrayOfToRecipients[0].emailAddress;
-                    outlook.recipients.firstRecipient = contactID.trim();
-                    if (outlook.recipients.firstRecipient != null) { outlook.insertContent.signature(); }  
+                    outlook.recipients.firstRecipient = arrayOfToRecipients[0].emailAddress;
+                    outlook.insertContent.signature(); 
+                }else if (arrayOfToRecipients.length == 0){
+                    console.log("Recipient removed");
+                    outlook.insertContent.signature(); 
+                    return;
                 }
         
                 if (arrayOfToRecipients.length > 1){
@@ -47,25 +44,10 @@ var outlook = {
             item.getAsync(callback);
         },
         firstRecipient: null,
-
-        zeroRecipient: function(){
-            var item = Office.context.mailbox.item.to;
-            function callback(asyncResult) {
-                if (asyncResult.value.length == 0){
-                    Office.context.ui.closeContainer();
-                }else{
-                    console.log("Check Rec");
-                    outlook.recipients.checkRecipients();
-                }
-            }
-
-            item.getAsync(callback);
-        }
     },
     insertContent:{
         video: function(){
             vlink.get_recipient_uuid(); 
-   
             Office.context.mailbox.item.body.setSelectedDataAsync(
                 "<div id='insert-content'>"+vlink.build_thumbnail_tag()+"</div>",
                 { coercionType: Office.CoercionType.Html }
@@ -81,20 +63,20 @@ var outlook = {
                 { coercionType: Office.CoercionType.Html });
         }
     },
-    signatureExist: function(){
+
+    updateContent: function(){
+        vlink.get_recipient_uuid(); 
         Office.context.mailbox.item.body.getAsync(
             "html",
-            { asyncContext: "Signature does not exist, please proceed to insert Signature." },
+            { asyncContext: "Updating all the links based on changed Recipient ID." },
             function callback(result) {
-                if (result.value.includes('email-signature')){
-                    console.log("Signature already exists.");
-                }
-                else{
-                    console.log("Here");
-                    outlook.recipients.getRecipients();
+                if (result.value.includes('contact::get_uid2')){
+                    var updatedContent = result.value.replace(/(\[\[)(contact::get_uid2)(\]\])/g, vlink.get_recipient_uuid());                   
+                    Office.context.mailbox.item.body.setAsync(updatedContent,
+                        { coercionType: Office.CoercionType.Html });
                 }
             }); 
-    }
+    },
 };
 
 export { outlook };
