@@ -5,7 +5,7 @@ import { options } from './options';
 import GibberishAES  from 'gibberish-aes/dist/gibberish-aes-1.0.0';
 
 var vlink = {
-    server_root: 'https://f296201f.ngrok.io/',
+    server_root: 'https://459214a0.ngrok.io/',
     //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -252,7 +252,7 @@ var vlink = {
         vlink.save_data(data);
         views.video_select.ui_init();
         if (textStatus == "success"){
-            outlook.recipients.getRecipients();
+            outlook.recipients.getRecipients(false);
         }
 
         if (vlink.after_data_sync_callback != null){

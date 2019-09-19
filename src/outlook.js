@@ -5,9 +5,9 @@ var outlook = {
         checkRecipients: function(){
             function recipientUpdated(eventarg) {      
                 if (eventarg.changedRecipientFields.to) {
-                  outlook.recipients.getRecipients();
-                  outlook.updateContent();
-                  return;
+                    outlook.recipients.getRecipients(true);
+                    outlook.updateContent();
+                    return;
                 }
               }
             function myCallback(){
@@ -15,18 +15,31 @@ var outlook = {
             }                
             Office.context.mailbox.item.addHandlerAsync(Office.EventType.RecipientsChanged, recipientUpdated, myCallback);           
         },
-        getRecipients: function(){
+        getRecipients: function(recipientStatus){
             var item = Office.context.mailbox.item.to;
             function callback(asyncResult) {
                 var arrayOfToRecipients = asyncResult.value;
-                
                 if (arrayOfToRecipients.length == 1){
                     outlook.recipients.firstRecipient = arrayOfToRecipients[0].emailAddress;
-                    outlook.insertContent.signature(); 
+                    outlook.recipients.firstRecipName = arrayOfToRecipients[0].displayName;
+                }else if (arrayOfToRecipients.length == 0 && recipientStatus){
+                    var origRecipient = [
+                        {
+                            "displayName": outlook.recipients.firstRecipName,
+                            "emailAddress": outlook.recipients.firstRecipient
+                        }
+                    ];
+                    Office.context.mailbox.item.to.setAsync(origRecipient, function(result) {
+                        if (result.error) {
+                            console.log(result.error);
+                        } else {
+                            console.log("Recipients overwritten");
+                        }
+                    });
+                    //Place the recipient back in to: field and content in body
+                    Office.context.ui.displayDialogAsync('https://localhost:3000/recp_missing.html', {height: 30, width: 20, displayInIframe: true});
                 }else if (arrayOfToRecipients.length == 0){
-                    console.log("Recipient removed");
                     outlook.insertContent.signature(); 
-                    return;
                 }
         
                 if (arrayOfToRecipients.length > 1){
@@ -44,6 +57,7 @@ var outlook = {
             item.getAsync(callback);
         },
         firstRecipient: null,
+        firstRecipName: null
     },
     insertContent:{
         video: function(){
@@ -59,7 +73,7 @@ var outlook = {
             updatedSig = updatedSig.replace(/(\[\[)(::contact_owner_uid)(\]\])/, vlink.data.coid);
             updatedSig = updatedSig.replace(/(\[\[)(message::uid2)(\]\])/, vlink.message_uuid);
             Office.context.mailbox.item.body.setSelectedDataAsync(
-                "<div id='email-signature'>"+updatedSig+"</div>",
+                "<div id='content' style='min-height:20px;'></div><div id='email-signature'>"+updatedSig+"</div>",
                 { coercionType: Office.CoercionType.Html });
         }
     },
