@@ -5,7 +5,7 @@ import { options } from './options';
 import GibberishAES  from 'gibberish-aes/dist/gibberish-aes-1.0.0';
 
 var vlink = {
-    server_root: 'https://459214a0.ngrok.io/',
+    server_root: 'https://948b2495.ngrok.io/',
     //server_root: 'https://platform.vlinksolutions.com/',
     data: null,
     video: null,
@@ -183,14 +183,7 @@ var vlink = {
     },
 
     get_recipient_uuid: function(){
-        
-        //if (vlink.recipient_uuid == null){
-            if(outlook.recipients.firstRecipient != null){
-                vlink.recipient_uuid = base64.encode(vlink.encrypt(outlook.recipients.firstRecipient.trim(), vlink.data.puid));
-            }else{
-                vlink.recipient_uuid = "[[contact::get_uid2]]";
-            } 
-        //}
+        vlink.recipient_uuid = base64.encode(vlink.encrypt(outlook.recipients.firstRecipient.trim(), vlink.data.puid));
         return vlink.recipient_uuid;
     },
 
@@ -221,8 +214,11 @@ var vlink = {
             vlink.show_message.in.select_video_box(vlink.messages.no_video_selected);
             return;
         }
-
-        outlook.insertContent.video();
+        if(outlook.recipients.firstRecipient != null){
+            outlook.insertContent.video();
+        }else{
+            vlink.show_message.in.new_message_box(vlink.messages.no_recipient);
+        }    
         //Office.context.ui.closeContainer();
     },
 
@@ -311,25 +307,9 @@ var vlink = {
         video_link.innerHTML = video_link.innerHTML.replace("[[contact::uid2]]", vlink.get_recipient_uuid());
     },
 
-    post_email: function(email){
-        // if ($(gmail.subject_box_selector).val() == ""){
-        //     vlink.show_message.in.new_message_box(vlink.messages.no_subject);
-        //     return vlink.messages.no_subject.code;
-        // }
-
-        vlink.clean_email_for_post();
-        vlink.add_contact_uid_to_video_link_in_signature();
-
-        if (vlink.video == null){
-            vlink.recipient_uuid = null;
-            return;
-        }
-        //Done in outlook.insertContent.video
-        //vlink.add_contact_uid_to_video_link_in_body();
-        //gmail.compose_message.append_content(vlink.build_tracking_image_url());
-
-        //var subject = base64.encode($(gmail.subject_box_selector).val());
-        //var body = base64.encode($(gmail.compose_message.content_selector).html());
+    record_send: function(sub,content){
+        var subject = base64.encode(sub);
+        var body = base64.encode(content);
 
         window.setTimeout(function() {
             $.ajax({

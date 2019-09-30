@@ -1,12 +1,10 @@
 import { vlink, base64 } from './vlink.js';
-import { views } from './views.js';
 var outlook = {
     recipients: {
         checkRecipients: function(){
             function recipientUpdated(eventarg) {      
                 if (eventarg.changedRecipientFields.to) {
                     outlook.recipients.getRecipients(true);
-                    outlook.updateContent();
                     return;
                 }
               }
@@ -21,25 +19,9 @@ var outlook = {
                 var arrayOfToRecipients = asyncResult.value;
                 if (arrayOfToRecipients.length == 1){
                     outlook.recipients.firstRecipient = arrayOfToRecipients[0].emailAddress;
-                    outlook.recipients.firstRecipName = arrayOfToRecipients[0].displayName;
+                    outlook.insertContent.signature();
                 }else if (arrayOfToRecipients.length == 0 && recipientStatus){
-                    var origRecipient = [
-                        {
-                            "displayName": outlook.recipients.firstRecipName,
-                            "emailAddress": outlook.recipients.firstRecipient
-                        }
-                    ];
-                    Office.context.mailbox.item.to.setAsync(origRecipient, function(result) {
-                        if (result.error) {
-                            console.log(result.error);
-                        } else {
-                            console.log("Recipients overwritten");
-                        }
-                    });
-                    //Place the recipient back in to: field and content in body
-                    Office.context.ui.displayDialogAsync('https://localhost:3000/recp_missing.html', {height: 30, width: 20, displayInIframe: true});
-                }else if (arrayOfToRecipients.length == 0){
-                    outlook.insertContent.signature(); 
+                    Office.context.ui.displayDialogAsync(vlink.server_root+'outlook_addin/recp_missing.html', {height: 30, width: 20, displayInIframe: true});
                 }
         
                 if (arrayOfToRecipients.length > 1){
@@ -56,39 +38,52 @@ var outlook = {
 
             item.getAsync(callback);
         },
-        firstRecipient: null,
-        firstRecipName: null
+        firstRecipient: null
     },
     insertContent:{
         video: function(){
             vlink.get_recipient_uuid(); 
             Office.context.mailbox.item.body.setSelectedDataAsync(
-                "<div id='insert-content'>"+vlink.build_thumbnail_tag()+"</div>",
+                "<div id='insert-content'>"+
+                vlink.build_thumbnail_tag()+
+                vlink.build_tracking_image_url()+
+                "</div>",
                 { coercionType: Office.CoercionType.Html }
-                );     
+                ); 
+            outlook.recordInsertion();      
         },
         signature: function(){ 
-            var signature = base64.decode(vlink.data.email_signature);
-            var updatedSig = signature.replace(/(\[\[)(contact::get_uid2)(\]\])/, vlink.get_recipient_uuid());
-            updatedSig = updatedSig.replace(/(\[\[)(::contact_owner_uid)(\]\])/, vlink.data.coid);
-            updatedSig = updatedSig.replace(/(\[\[)(message::uid2)(\]\])/, vlink.message_uuid);
-            Office.context.mailbox.item.body.setSelectedDataAsync(
-                "<div id='content' style='min-height:20px;'></div><div id='email-signature'>"+updatedSig+"</div>",
-                { coercionType: Office.CoercionType.Html });
+            if(outlook.recipients.firstRecipient != null){
+                var signature = base64.decode(vlink.data.email_signature);
+                var updatedSig = signature.replace(/(\[\[)(contact::get_uid2)(\]\])/, vlink.get_recipient_uuid());
+                updatedSig = updatedSig.replace(/(\[\[)(::contact_owner_uid)(\]\])/, vlink.data.coid);
+                updatedSig = updatedSig.replace(/(\[\[)(message::uid2)(\]\])/, vlink.message_uuid);
+                Office.context.mailbox.item.body.setSelectedDataAsync(
+                    "<div id='email-signature'>"+updatedSig+"</div>",
+                    { coercionType: Office.CoercionType.Html });
+            }
         }
     },
 
-    updateContent: function(){
-        vlink.get_recipient_uuid(); 
+    recordInsertion: function(){
+        outlook.getBody();
+    },
+
+    getSubject: function(body){
+        Office.context.mailbox.item.subject.getAsync(response);
+        function response(asyncResult) {
+            var subject = asyncResult.value;
+            vlink.record_send(subject, body);
+        }  
+    },
+
+    getBody: function(){
         Office.context.mailbox.item.body.getAsync(
             "html",
             { asyncContext: "Updating all the links based on changed Recipient ID." },
             function callback(result) {
-                if (result.value.includes('contact::get_uid2')){
-                    var updatedContent = result.value.replace(/(\[\[)(contact::get_uid2)(\]\])/g, vlink.get_recipient_uuid());                   
-                    Office.context.mailbox.item.body.setAsync(updatedContent,
-                        { coercionType: Office.CoercionType.Html });
-                }
+                var content = result.value;
+                outlook.getSubject(content);
             }); 
     },
 };

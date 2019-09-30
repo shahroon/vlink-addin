@@ -54,7 +54,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <div><input id="videos-search"></div>
+                        <div><input id="videos-search" onclick="this.value=''"></div>
                     </td>
                 </tr>
                 <tr><td><div style="height: 10px"></div></td></tr>
@@ -111,28 +111,10 @@
             </table>
         </div>
     </div>
-
-    <div id="vlink-modalDialog" class="hide">
-        <div id="vlink-error-too-many-emails" class="hide">
-            <div class="vlink-dialog-header">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>vLink - ERROR - Too many recipients</td>
-                        <td id="video-select-cancel-button" class="right"><img class="vlink-close-btn" src="" alt="Close" aria-label="Close"></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="vlink-dialog-body">
-                <h1>We see you are sending content to multiple contacts!</h1>
-                <div>In order to track your recipients' activity the vLink plugin must send separate emails to each contact</div>
-            </div>
-        </div>
-    </div>
     <div id="footer">
         <span>
             powered by vLink Solutions
-        </span>
+        </span><br>
+        <span><a href="#" id="vlink_logout">Logout</a></span>
     </div>
 </div>

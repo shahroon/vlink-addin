@@ -2,7 +2,6 @@
     import { vlink } from './vlink.js';
     import { api_credentials } from './api_credentials';
     import { options } from './options';
-    import { outlook } from './outlook.js';
 
     var views = {
         selecty_change: function(event, ui){ 
@@ -27,7 +26,7 @@
                 init: function(){
                     $(views.dialog.modal.selector + ' ' + views.dialog.close_button_selector).click(function(){
                         views.remove_too_many_recipients_modal_box();
-                    })
+                    });
                 }
             }
         },
@@ -64,7 +63,7 @@
     
             window.setTimeout(function(){
                 views.hide(status_bar);
-                window.setTimeout(function(){status_bar.removeClass(type);}, 500)
+                window.setTimeout(function(){status_bar.removeClass(type);}, 500);
             }, 3000);
         },
     
@@ -100,8 +99,7 @@
                 });
     
                 $(views.sign_in.selector).css('left', (window.innerWidth/2 - 125) + 'px');
-                $(views.sign_in.selector).css('top', (window.innerHeight/3 - 100) + 'px');
-    
+                $(views.sign_in.selector).css('top', (window.innerHeight/3 - 100) + 'px');    
             },
     
             hide: function(){
@@ -117,7 +115,7 @@
             preview_button_selector: '#preview-button',
             search_selector: '#videos-search',
             status_bar_selector: '#vlink-video-select-status-bar',
-            
+            logout: '#vlink_logout',
     
             tooltip: {
                 id: 'vlink-insert-video-tooltip',
@@ -176,7 +174,11 @@
                 $(".ui-autocomplete").css({top:"-=130px",left:"+=25px"});
                 $(views.video_select.selector).css('left', (window.innerWidth/2 - 275) + 'px');
                 $(views.video_select.selector).css('top', (window.innerHeight/3 - 65) + 'px');
-    
+
+                $(views.video_select.logout).click(function(){
+                    vlink.logout();
+                    Office.context.ui.closeContainer();
+                });
             },
     
             ui_init: function(){
@@ -257,7 +259,8 @@
     
         init: function(){
             // **/src/ui.html in local
-            $('body').prepend('<div id="div1"></div>').load('/src/ui.html', function(){
+            var version = Math.random();
+            $('body').prepend('<div id="div1"></div>').load('/src/ui.html?version='+version, function(){
                         views.sign_in.init();
                         views.video_select.init();
                         views.options.init();
@@ -266,9 +269,9 @@
                         vlink.get_data();
                     else
                         vlink.show_sign_in();
-            })
+            });
 
-                $(views.dialog.close_button_selector).attr('src', '');
+            $(views.dialog.close_button_selector).attr('src', '');
             // }));
         },
     
